@@ -10,6 +10,11 @@ public class Pokemon {
 
     //CONSTRUCTOR
     public Pokemon(String name, String [] types, int lvl, String [] abilities, String [] evolutions){
+        this.name=name;
+        this.types=types;
+        this.lvl=lvl;
+        this.abilities=abilities;
+        this.evolutions=evolutions;
     }
 
 
