@@ -1,20 +1,23 @@
 package pokemon;
+import java.util.ArrayList;
 
 public class Pokemon {
     String name;
-    String [] types;
+    ArrayList<String> types;
     int lvl;
     String [] abilities;
-    String [] evolutions;
+    ArrayList<Pokemon> evolutions;
+    int evolvesAtLvl;
 
 
     //CONSTRUCTOR
-    public Pokemon(String name, String [] types, int lvl, String [] abilities, String [] evolutions){
+    public Pokemon(String name, ArrayList<String> types, int lvl, String [] abilities, ArrayList<Pokemon> evolutions, int evolvesAtLvl){
         this.name=name;
         this.types=types;
         this.lvl=lvl;
         this.abilities=abilities;
         this.evolutions=evolutions;
+        this.evolvesAtLvl=evolvesAtLvl;
     }
 
 
@@ -23,7 +26,7 @@ public class Pokemon {
         return name;
     }
 
-    public String[] type() {
+    public ArrayList<String> type() {
         return types;
     }
 
@@ -35,8 +38,23 @@ public class Pokemon {
         return abilities;
     }
 
-    public String[] evolutions() {
+    public ArrayList<Pokemon> evolutions() {
         return evolutions;
+    }
+
+    public void evolvesAtLvl(){
+        if(this.evolvesAtLvl==999){
+            this.isFinalEvo();
+        }
+        else{ this.returnLvl(this.evolvesAtLvl); }
+    }
+
+    private int returnLvl(int level) {
+        return level;
+    }
+
+    private void isFinalEvo() {
+        System.out.println("This is " + this.name() + " final evolution.");
     }
 
     //------------------------------SETTERS
@@ -44,9 +62,20 @@ public class Pokemon {
         this.name = name;
     }
 
-    public void type(String[] types) {
+    public void changeTypeArray(ArrayList types) {
         this.types = types;
     }
+
+    public void addType(String newType){
+        this.types.add(newType);
+    }
+
+    public void removeType(String typeToRmv){
+        int index = this.types.indexOf(typeToRmv);
+        this.types.remove(index);
+        System.out.println("The type "+ typeToRmv + " has been removed from "+ this.name);
+    }
+
 
     public void lvl(int lvl) {
         this.lvl = lvl;
@@ -56,7 +85,15 @@ public class Pokemon {
         this.abilities = abilities;
     }
 
-    public void evolutions(String[] evolutions) {
+    public void evolutions(ArrayList<Pokemon> evolutions) {
         this.evolutions = evolutions;
+    }
+
+    public void evolvesAtLvl(int evolvesAtLvl) {
+        this.evolvesAtLvl = evolvesAtLvl;
+    }
+
+    public void addEvolution(Pokemon newEvo){
+
     }
 }

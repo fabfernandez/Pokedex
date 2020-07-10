@@ -1,16 +1,30 @@
 package user;
 import pokemon.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class UserTest {
+    Pokemon raichu = new Pokemon(
+            "Raichu",
+            new ArrayList<String>(Arrays.asList("Electric")),
+            35,
+            new String[]{"Tacle"},
+            new ArrayList<Pokemon>(),
+            999
+    );
+
     Pokemon pikachu = new Pokemon(
-        "Pikachu",
-        new String[]{"Electric"},
-        10,
-        new String[]{"Tacle"},
-        new String[]{"Raichu"}
-        );
+            "Pikachu",
+            new ArrayList<String>(Arrays.asList("Electric")),
+            10,
+            new String[]{"Tacle"},
+            new ArrayList<Pokemon>(Arrays.asList(raichu)),
+            35
+    );
+
 
     Pokemon[] ashpokes = new Pokemon[] {pikachu, pikachu, pikachu};
 
