@@ -1,46 +1,32 @@
 package pokemon;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import database.PokemonDB;
 
+import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 public class PokemonTest {
-    public Pokemon raichu = new Pokemon(
-            "Raichu",
-            new ArrayList<String>(Arrays.asList("Electric")),
-            35,
-            new ArrayList<String> (Arrays.asList("Electroshock", "Iron Tail", "Tacle")),
-            new ArrayList<Pokemon>(),
-            999
-    );
-
-    public Pokemon pikachu = new Pokemon(
-                "Pikachu",
-                new ArrayList<String>(Arrays.asList("Electric")),
-                10,
-                new ArrayList<String> (Arrays.asList("Tacle")),
-                new ArrayList<Pokemon>(Arrays.asList(raichu)),
-                35
-    );
-
-    @org.junit.jupiter.api.Test
-    void testDatabase(){
-        ArrayList<Pokemon> db = new ArrayList<Pokemon>(Arrays.asList(pikachu, raichu));
-
-    }
 
     @org.junit.jupiter.api.Test
     void name() {
+        PokemonDB.reloadDb();
+
         String n = "Pikachu";
-        assertEquals(n, pikachu.name());
+        Pokemon pika = PokemonDB.getPokemon(n);
 
-        pikachu.name("pika");
-        String nn ="pika";
-        assertEquals(nn, pikachu.name());
+        assertNotNull(pika);
+        assertEquals(n, pika.name());
+
+        String newName ="Pike";
+        pika.setName(newName);
+
+        assertEquals(newName, pika.name());
+
+        assertNull("Da null porque no encuentra Pikachu porque le cambiamos el nombre", PokemonDB.getPokemon("Pikachu"));
     }
-
+/*
     @org.junit.jupiter.api.Test
     void type() {
         ArrayList<String> t =new ArrayList<>(Arrays.asList("Electric"));
@@ -64,12 +50,15 @@ public class PokemonTest {
 
     @org.junit.jupiter.api.Test
     void abilities() {
-        ArrayList<String> a = new ArrayList<String>(Arrays.asList("Tacle"));
-        assertEquals(a, pikachu.abilities());
 
-        ArrayList<String> aa = new ArrayList<String>(Arrays.asList("Tacle","Electroshock"));
-        pikachu.abilities(aa);
-        assertEquals(aa, pikachu.abilities());
+        pikachu.addAbility("Thunder");
+        ArrayList<String> testadd = new ArrayList<String>(Arrays.asList("Tacle", "Thunder"));
+        assertEquals(testadd, pikachu.abilities());
+
+        pikachu.removeAbility("Tacle");
+        ArrayList<String> testrmv = new ArrayList<String>(Arrays.asList("Thunder"));
+        assertEquals(testrmv, pikachu.abilities());
+
     }
 
     @org.junit.jupiter.api.Test
@@ -79,5 +68,5 @@ public class PokemonTest {
         String[] ee = new String[]{"Pichu","Raichu"};
         //pikachu.evolutions(new String[]{"Pichu","Raichu"});
         //assertArrayEquals(ee, pikachu.evolutions());
-    }
+    }*/
 }

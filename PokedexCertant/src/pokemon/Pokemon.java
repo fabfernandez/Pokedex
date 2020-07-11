@@ -1,28 +1,31 @@
 package pokemon;
+
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 
 public class Pokemon {
-    String name;
-    ArrayList<String> types;
-    int lvl;
-    ArrayList<String> abilities;
-    ArrayList<Pokemon> evolutions;
-    int evolvesAtLvl;
+    private String name;
+    private ArrayList<String> types;
+    private int lvl;
+    private ArrayList<String> abilities;
+    private LinkedList<Pokemon> evolutions;
+    private int evolvesAtLvl;
 
 
     //CONSTRUCTOR
-    public Pokemon(String name, ArrayList<String> types, int lvl, ArrayList<String> abilities, ArrayList<Pokemon> evolutions, int evolvesAtLvl){
-        this.name=name;
-        this.types=types;
-        this.lvl=lvl;
-        this.abilities=abilities;
-        this.evolutions=evolutions;
-        this.evolvesAtLvl=evolvesAtLvl;
+    public Pokemon(String name, ArrayList<String> types, int lvl, ArrayList<String> abilities, LinkedList<Pokemon> evolutions, int evolvesAtLvl) {
+        this.name = name;
+        this.types = types;
+        this.lvl = lvl;
+        this.abilities = abilities;
+        this.evolutions = evolutions;
+        this.evolvesAtLvl = evolvesAtLvl;
     }
 
 
-    //-------------------------------GETTERS
+    //-------------------------------GETTERS--------------------------------------------
+
     public String name() {
         return name;
     }
@@ -39,63 +42,64 @@ public class Pokemon {
         return abilities;
     }
 
-    public ArrayList<Pokemon> evolutions() {
+    public LinkedList<Pokemon> evolutions() {
         return evolutions;
     }
 
-    public void evolvesAtLvl(){
-        if(this.evolvesAtLvl==999){
-            this.isFinalEvo();
-        }
-        else{ this.returnLvl(this.evolvesAtLvl); }
-    }
+    //------------------------------SETTERS---------------------------------------------
 
-    private int returnLvl(int level) {
-        return level;
-    }
-
-    private void isFinalEvo() {
-        System.out.println("This is " + this.name() + " final evolution.");
-    }
-
-    //------------------------------SETTERS
-    public void name(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public void changeTypeArray(ArrayList types) {
+    public void setTypesArray(ArrayList types) {
         this.types = types;
     }
 
-    public void addType(String newType){
+    public void addType(String newType) {
         this.types.add(newType);
     }
 
-    public void removeType(String typeToRmv){
-        int index = this.types.indexOf(typeToRmv);
-        this.types.remove(index);
-        System.out.println("The type "+ typeToRmv + " has been removed from "+ this.name);
+    public void removeType(String typeToRmv) {
+        this.types.remove(typeToRmv);
     }
 
 
-    public void lvl(int lvl) {
+    public void setLvl(int lvl) {
         this.lvl = lvl;
     }
 
-    public void abilities(ArrayList<String> abilities) {
+
+    public void setAbilities(ArrayList<String> abilities) {
         this.abilities = abilities;
         //return this;
     }
 
-    public void evolutions(ArrayList<Pokemon> evolutions) {
-        this.evolutions = evolutions;
+    public void addAbility(String newAb) {
+        this.abilities.add(newAb);
     }
 
-    public void evolvesAtLvl(int evolvesAtLvl) {
+    public void removeAbility(String abilityToRmv) {
+        this.abilities.remove(abilityToRmv);
+    }
+
+
+    public void setEvolvesAtLvl(int evolvesAtLvl) {
         this.evolvesAtLvl = evolvesAtLvl;
     }
 
-    public void addEvolution(Pokemon newEvo){
+    public void setEvolutions(LinkedList<Pokemon> evolutions) {
+        this.evolutions = evolutions;
+    }
+
+
+    public void addEvolution(Pokemon newEvo) {
+        this.evolutions.addFirst(newEvo);
+        System.out.println(newEvo + " is now the next evolution to " + this.name);
+
+    }
+
+    public void removeEvolution(Pokemon evo) {
 
     }
 }
