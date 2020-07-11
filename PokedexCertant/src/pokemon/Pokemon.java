@@ -1,17 +1,18 @@
 package pokemon;
 import java.util.ArrayList;
 
+
 public class Pokemon {
     String name;
     ArrayList<String> types;
     int lvl;
-    String [] abilities;
+    ArrayList<String> abilities;
     ArrayList<Pokemon> evolutions;
     int evolvesAtLvl;
 
 
     //CONSTRUCTOR
-    public Pokemon(String name, ArrayList<String> types, int lvl, String [] abilities, ArrayList<Pokemon> evolutions, int evolvesAtLvl){
+    public Pokemon(String name, ArrayList<String> types, int lvl, ArrayList<String> abilities, ArrayList<Pokemon> evolutions, int evolvesAtLvl){
         this.name=name;
         this.types=types;
         this.lvl=lvl;
@@ -34,7 +35,7 @@ public class Pokemon {
         return lvl;
     }
 
-    public String[] abilities() {
+    public ArrayList<String> abilities() {
         return abilities;
     }
 
@@ -81,8 +82,9 @@ public class Pokemon {
         this.lvl = lvl;
     }
 
-    public void abilities(String[] abilities) {
+    public void abilities(ArrayList<String> abilities) {
         this.abilities = abilities;
+        //return this;
     }
 
     public void evolutions(ArrayList<Pokemon> evolutions) {

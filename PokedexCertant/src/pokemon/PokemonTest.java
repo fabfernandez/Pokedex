@@ -1,33 +1,35 @@
 package pokemon;
 
-import org.junit.Test;
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
 
-class PokemonTest {
-    Pokemon raichu = new Pokemon(
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+
+public class PokemonTest {
+    public Pokemon raichu = new Pokemon(
             "Raichu",
             new ArrayList<String>(Arrays.asList("Electric")),
             35,
-            new String[]{"Tacle"},
+            new ArrayList<String> (Arrays.asList("Electroshock", "Iron Tail", "Tacle")),
             new ArrayList<Pokemon>(),
             999
     );
 
-    Pokemon pikachu = new Pokemon(
+    public Pokemon pikachu = new Pokemon(
                 "Pikachu",
                 new ArrayList<String>(Arrays.asList("Electric")),
                 10,
-                new String[]{"Tacle"},
+                new ArrayList<String> (Arrays.asList("Tacle")),
                 new ArrayList<Pokemon>(Arrays.asList(raichu)),
                 35
     );
 
+    @org.junit.jupiter.api.Test
+    void testDatabase(){
+        ArrayList<Pokemon> db = new ArrayList<Pokemon>(Arrays.asList(pikachu, raichu));
 
+    }
 
     @org.junit.jupiter.api.Test
     void name() {
@@ -53,7 +55,7 @@ class PokemonTest {
         assertEquals(ttt, pikachu.type());
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     void lvl() {
         assertEquals(10, pikachu.lvl());
         pikachu.lvl(11);
@@ -62,11 +64,12 @@ class PokemonTest {
 
     @org.junit.jupiter.api.Test
     void abilities() {
-        String[] a = new String[]{"Tacle"};
-        assertArrayEquals(a, pikachu.abilities());
-        String[] aa = new String[]{"Tacle","Electroshock"};
-        pikachu.abilities(new String[]{"Tacle","Electroshock"});
-        assertArrayEquals(aa, pikachu.abilities());
+        ArrayList<String> a = new ArrayList<String>(Arrays.asList("Tacle"));
+        assertEquals(a, pikachu.abilities());
+
+        ArrayList<String> aa = new ArrayList<String>(Arrays.asList("Tacle","Electroshock"));
+        pikachu.abilities(aa);
+        assertEquals(aa, pikachu.abilities());
     }
 
     @org.junit.jupiter.api.Test
