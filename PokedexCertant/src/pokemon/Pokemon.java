@@ -1,7 +1,6 @@
 package pokemon;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 
 public class Pokemon {
@@ -9,17 +8,17 @@ public class Pokemon {
     private ArrayList<String> types;
     private int lvl;
     private ArrayList<String> abilities;
-    private LinkedList<Pokemon> evolutions;
+    private Pokemon evolution;
     private int evolvesAtLvl;
 
 
     //CONSTRUCTOR
-    public Pokemon(String name, ArrayList<String> types, int lvl, ArrayList<String> abilities, LinkedList<Pokemon> evolutions, int evolvesAtLvl) {
+    public Pokemon(String name, ArrayList<String> types, int lvl, ArrayList<String> abilities, Pokemon evolution, int evolvesAtLvl) {
         this.name = name;
         this.types = types;
         this.lvl = lvl;
         this.abilities = abilities;
-        this.evolutions = evolutions;
+        this.evolution = evolution;
         this.evolvesAtLvl = evolvesAtLvl;
     }
 
@@ -42,8 +41,12 @@ public class Pokemon {
         return abilities;
     }
 
-    public LinkedList<Pokemon> evolutions() {
-        return evolutions;
+    public Pokemon evolution() {
+        return evolution;
+    }
+
+    public int evolvesAtLvl(){
+        return evolvesAtLvl;
     }
 
     //------------------------------SETTERS---------------------------------------------
@@ -52,7 +55,7 @@ public class Pokemon {
         this.name = name;
     }
 
-    public void setTypesArray(ArrayList types) {
+    public void setTypes(ArrayList types) {
         this.types = types;
     }
 
@@ -88,18 +91,33 @@ public class Pokemon {
         this.evolvesAtLvl = evolvesAtLvl;
     }
 
-    public void setEvolutions(LinkedList<Pokemon> evolutions) {
-        this.evolutions = evolutions;
+    public void setEvolution(Pokemon evolutions) {
+        this.evolution = evolutions;
     }
 
 
-    public void addEvolution(Pokemon newEvo) {
-        this.evolutions.addFirst(newEvo);
-        System.out.println(newEvo + " is now the next evolution to " + this.name);
-
+    public void addEvolution(Pokemon newEvo, int evolvesAtLvl) {
+        this.evolution= newEvo;
+        this.evolvesAtLvl= evolvesAtLvl;
     }
 
-    public void removeEvolution(Pokemon evo) {
+    public void removeEvolution() {
+        this.evolution = null;
+    }
 
+    public ArrayList <Pokemon> allEvolutions() {
+        ArrayList <Pokemon> evolutions = new ArrayList<>();
+
+        if(this.evolution() == null){
+            return evolutions;          // si es la evolucion final, devolver lista vacia
+        }
+
+        Pokemon actual = this;
+
+        while (actual.evolution() != null){
+            evolutions.add(actual.evolution);
+            actual = actual.evolution();
+        }
+        return evolutions;
     }
 }

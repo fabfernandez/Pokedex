@@ -4,7 +4,6 @@ import pokemon.Pokemon;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 
 public class PokemonDB {
 
@@ -34,13 +33,54 @@ public class PokemonDB {
     }
 
     public static void fillDb() {
+
+        Pokemon missingno = new Pokemon(
+                "MissingNO",
+                new ArrayList<String>(Arrays.asList("Normal", "Bird")),
+                100,
+                new ArrayList<String>(Arrays.asList("Glitch")),
+                null,
+                100
+        );
+        PokemonDB.addPokemon(missingno);
+
+        Pokemon charizard = new Pokemon(
+                "Charizard",
+                new ArrayList<String>(Arrays.asList("Fire", "Dragon")),
+                40,
+                new ArrayList<String>(Arrays.asList("Fly", "Ember", "Flamethrower")),
+                null,
+                36
+        );
+        PokemonDB.addPokemon(charizard);
+
+        Pokemon charmeleon = new Pokemon(
+                "Charmeleon",
+                new ArrayList<String>(Arrays.asList("Fire")),
+                20,
+                new ArrayList<String>(Arrays.asList("Ember", "Flamethrower")),
+                charizard,
+                36
+        );
+        PokemonDB.addPokemon(charmeleon);
+
+        Pokemon charmander = new Pokemon(
+                "Charmander",
+                new ArrayList<String>(Arrays.asList("Fire")),
+                10,
+                new ArrayList<String>(Arrays.asList("Ember", "Tacle")),
+                charmeleon,
+                16
+        );
+        PokemonDB.addPokemon(charmander);
+
         Pokemon raichu = new Pokemon(
                 "Raichu",
                 new ArrayList<String>(Arrays.asList("Electric")),
                 35,
                 new ArrayList<String>(Arrays.asList("Electroshock", "Iron Tail", "Tacle")),
-                new LinkedList<Pokemon>(),
-                0
+                null,
+                35
         );
         PokemonDB.addPokemon(raichu);
 
@@ -49,7 +89,7 @@ public class PokemonDB {
                 new ArrayList<String>(Arrays.asList("Electric")),
                 10,
                 new ArrayList<String>(Arrays.asList("Tacle")),
-                new LinkedList<Pokemon>(Arrays.asList(raichu)),
+                raichu,
                 35
         );
         PokemonDB.addPokemon(pikachu);
@@ -60,13 +100,13 @@ public class PokemonDB {
                 new ArrayList<String>(Arrays.asList("Electric")),
                 2,
                 new ArrayList<String>(Arrays.asList("Tacle")),
-                new LinkedList<Pokemon>(Arrays.asList(pikachu)),
+                pikachu,
                 10
         );
         PokemonDB.addPokemon(pichu);
     }
 
-    public static void cleanDb(){
+    public static void cleanDb() {
         PokemonDB.pokemones = new ArrayList<Pokemon>();
     }
 
