@@ -11,10 +11,33 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 public class PokemonTest {
+
     @org.junit.jupiter.api.Test
     void certant() {
         PokemonDB.reloadDb();
-        
+
+        PokemonDB.listAllPokemons();
+
+        Pokemon pichu = PokemonDB.getPokemon("Pichu");
+        assertNotNull(pichu, "Se encontro al pokemon buscado");
+
+        pichu.printProperties();
+
+        pichu.printEvolutionProperties();
+
+        Pokemon snorlax = new Pokemon(
+                "Snorlax",
+                new ArrayList<String>(Arrays.asList("Normal")),
+                30,
+                new ArrayList<String>(Arrays.asList("Sleep")),
+                null,
+                30
+        );
+        PokemonDB.addPokemon(snorlax);
+
+        Pokemon encontrado = PokemonDB.getPokemon("Snorlax");
+        assertNotNull(encontrado, "Se encontro al pokemon buscado");
+
     }
 
     @org.junit.jupiter.api.Test
@@ -23,11 +46,11 @@ public class PokemonTest {
 
         String n = "Pikachu";
         Pokemon pika = PokemonDB.getPokemon(n);
-        assertNotNull(pika, "Se encontro a pokemon buscado");
+        assertNotNull(pika, "Se encontro al pokemon buscado");
 
         assertEquals(n, pika.name(), "El pokemon encontrado tiene el nombre que buscamos");
 
-        String newName ="Pike";
+        String newName = "Pike";
         pika.setName(newName);
 
         assertEquals(newName, pika.name(), "Cabiar el nombre a un pokemon");
@@ -40,9 +63,9 @@ public class PokemonTest {
         PokemonDB.reloadDb();
 
         Pokemon raichu = PokemonDB.getPokemon("Raichu");
-        assertNotNull(raichu, "Se encontro a pokemon buscado");
+        assertNotNull(raichu, "Se encontro al pokemon buscado");
 
-        ArrayList<String> testType =new ArrayList<>(Arrays.asList("Electric"));
+        ArrayList<String> testType = new ArrayList<>(Arrays.asList("Electric"));
         assertEquals(testType, raichu.type(), "Raichu es tipo electrico");
 
         raichu.addType("Mouse");
@@ -59,12 +82,12 @@ public class PokemonTest {
         PokemonDB.reloadDb();
 
         Pokemon pichu = PokemonDB.getPokemon("Pichu");
-        assertNotNull(pichu, "Se encontro a pokemon buscado");
+        assertNotNull(pichu, "Se encontro al pokemon buscado");
 
         int testLevel = pichu.lvl();
 
-        pichu.setLvl(testLevel+1);
-        assertEquals(testLevel+1, pichu.lvl(), "Rare Candy");
+        pichu.setLvl(testLevel + 1);
+        assertEquals(testLevel + 1, pichu.lvl(), "Rare Candy");
     }
 
     @org.junit.jupiter.api.Test
@@ -72,7 +95,7 @@ public class PokemonTest {
         PokemonDB.reloadDb();
 
         Pokemon charmander = PokemonDB.getPokemon("Charmander");
-        assertNotNull(charmander, "Se encontro a pokemon buscado");
+        assertNotNull(charmander, "Se encontro al pokemon buscado");
 
         ArrayList<String> testAbil = charmander.abilities();
         charmander.addAbility("Cut");
@@ -89,10 +112,10 @@ public class PokemonTest {
     void evolutions() {
         PokemonDB.reloadDb();
         Pokemon charizard = PokemonDB.getPokemon("Charizard");
-        assertNotNull(charizard, "Se encontro a pokemon buscado");
+        assertNotNull(charizard, "Se encontro al pokemon buscado");
 
         Pokemon missingno = PokemonDB.getPokemon("MissingNO");
-        assertNotNull(missingno, "Se encontro a pokemon buscado");
+        assertNotNull(missingno, "Se encontro al pokemon buscado");
 
         charizard.addEvolution(missingno, 99);
         assertEquals(missingno, charizard.evolution(), "Agregar una evolucion");
@@ -102,22 +125,33 @@ public class PokemonTest {
         assertNotNull(charmander, "Se encontro a pokemon buscado");
 
         Pokemon charmeleon = PokemonDB.getPokemon("Charmeleon");
-        assertNotNull(missingno, "Se encontro a pokemon buscado");
+        assertNotNull(missingno, "Se encontro al pokemon buscado");
 
-        ArrayList<Pokemon> testEvolutions = new ArrayList<Pokemon> (Arrays.asList(charmeleon, charizard, missingno));
+        ArrayList<Pokemon> testEvolutions = new ArrayList<Pokemon>(Arrays.asList(charmeleon, charizard, missingno));
 
         assertEquals(testEvolutions, charmander.allEvolutions(), "Todas las evoluciones de un pokemon");
 
+        charizard.removeEvolution();
+        testEvolutions.remove(missingno);
+        assertEquals(testEvolutions, charmander.allEvolutions(), "Borrar la evolucion de un pokemon funciona");
+
+
+        charmeleon.removeEvolution();
+        assertNotNull(charmeleon);
+        assertNull(charmeleon.evolution());
+        testEvolutions.remove(charizard);
+        assertEquals(testEvolutions, charmander.allEvolutions(), "Borrar la evolucion de un pokemon funciona");
+
         Pokemon pichu = PokemonDB.getPokemon("Pichu");
-        assertNotNull(pichu, "Se encontro a pokemon buscado");
+        assertNotNull(pichu, "Se encontro al pokemon buscado");
 
         Pokemon pikachu = PokemonDB.getPokemon("Pikachu");
-        assertNotNull(pikachu, "Se encontro a pokemon buscado");
+        assertNotNull(pikachu, "Se encontro al pokemon buscado");
 
         Pokemon raichu = PokemonDB.getPokemon("Raichu");
-        assertNotNull(raichu, "Se encontro a pokemon buscado");
+        assertNotNull(raichu, "Se encontro al pokemon buscado");
 
 
-        assertEquals(new ArrayList<Pokemon> (Arrays.asList(pikachu, raichu)), pichu.allEvolutions(), "Todas las evoluciones de Pichu");
+        assertEquals(new ArrayList<Pokemon>(Arrays.asList(pikachu, raichu)), pichu.allEvolutions(), "Todas las evoluciones de Pichu");
     }
 }

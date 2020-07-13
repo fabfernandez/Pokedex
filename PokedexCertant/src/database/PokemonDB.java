@@ -9,6 +9,19 @@ public class PokemonDB {
 
     private static ArrayList<Pokemon> pokemones = new ArrayList<Pokemon>();
 
+    public static ArrayList<Pokemon> pokemones() {
+        return pokemones;
+    }
+
+    public static void listAllPokemons() {
+        System.out.println("All Pokemons currently on this Pokedex: ");
+
+        for (Pokemon pokemon : PokemonDB.pokemones()) {
+            System.out.println(pokemon.name());
+        }
+        System.out.println("---------------------------0--------------------------------");
+    }
+
     public static Pokemon getPokemon(String nombre) {
 
         for (Pokemon pokemon : PokemonDB.pokemones) {
@@ -33,6 +46,36 @@ public class PokemonDB {
     }
 
     public static void fillDb() {
+
+        Pokemon articuno = new Pokemon(
+                "Articuno",
+                new ArrayList<String>(Arrays.asList("Ice", "Bird", "Legendary")),
+                60,
+                new ArrayList<String>(Arrays.asList("Ice Beam")),
+                null,
+                60
+        );
+        PokemonDB.addPokemon(articuno);
+
+        Pokemon zapdos = new Pokemon(
+                "Zapdos",
+                new ArrayList<String>(Arrays.asList("Electric", "Bird", "Legendary")),
+                60,
+                new ArrayList<String>(Arrays.asList("Thunder")),
+                null,
+                60
+        );
+        PokemonDB.addPokemon(zapdos);
+
+        Pokemon moltres = new Pokemon(
+                "Moltres",
+                new ArrayList<String>(Arrays.asList("Fire", "Bird", "Legendary")),
+                60,
+                new ArrayList<String>(Arrays.asList("Flamethrower")),
+                null,
+                60
+        );
+        PokemonDB.addPokemon(moltres);
 
         Pokemon missingno = new Pokemon(
                 "MissingNO",

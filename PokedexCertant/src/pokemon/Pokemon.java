@@ -1,6 +1,8 @@
 package pokemon;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class Pokemon {
@@ -45,7 +47,7 @@ public class Pokemon {
         return evolution;
     }
 
-    public int evolvesAtLvl(){
+    public int evolvesAtLvl() {
         return evolvesAtLvl;
     }
 
@@ -55,7 +57,7 @@ public class Pokemon {
         this.name = name;
     }
 
-    public void setTypes(ArrayList types) {
+    private void setTypes(ArrayList<String> types) {
         this.types = types;
     }
 
@@ -91,33 +93,70 @@ public class Pokemon {
         this.evolvesAtLvl = evolvesAtLvl;
     }
 
-    public void setEvolution(Pokemon evolutions) {
+    private void setEvolution(Pokemon evolutions) {
         this.evolution = evolutions;
     }
 
 
     public void addEvolution(Pokemon newEvo, int evolvesAtLvl) {
-        this.evolution= newEvo;
-        this.evolvesAtLvl= evolvesAtLvl;
+        this.evolution = newEvo;
+        this.evolvesAtLvl = evolvesAtLvl;
     }
 
     public void removeEvolution() {
         this.evolution = null;
     }
 
-    public ArrayList <Pokemon> allEvolutions() {
-        ArrayList <Pokemon> evolutions = new ArrayList<>();
+    public ArrayList<Pokemon> allEvolutions() {
+        ArrayList<Pokemon> evolutions = new ArrayList<>();
 
-        if(this.evolution() == null){
+        if (this.evolution() == null) {
             return evolutions;          // si es la evolucion final, devolver lista vacia
         }
 
         Pokemon actual = this;
 
-        while (actual.evolution() != null){
+        while (actual.evolution() != null) {
             evolutions.add(actual.evolution);
             actual = actual.evolution();
         }
         return evolutions;
+    }
+
+    public void printProperties() {
+        System.out.println("Showing information about " + this.name());
+
+
+        System.out.println("Types :");
+        printSomeList(this.types);
+
+        System.out.println("Level: " + this.lvl());
+
+        System.out.println("Abilities: ");
+        printSomeList(this.abilities);
+
+        System.out.println("Evolutions :");
+        printEvolutionNames();
+
+        System.out.println("---------------------------0--------------------------------");
+    }
+
+    private <T> void printSomeList(List<T> list) {
+        for (T string : list) {
+            System.out.println(string);
+        }
+    }
+
+    private void printEvolutionNames() {
+        printSomeList(this.allEvolutions().stream().map(Pokemon::name).collect(Collectors.toList()));
+    }
+
+    public void printEvolutionProperties() {
+        System.out.println("Showing information about " + this.name() + "'s evolutions:");
+        System.out.println("____________");
+        for (Pokemon pokemon : this.allEvolutions()) {
+            pokemon.printProperties();
+        }
+
     }
 }
