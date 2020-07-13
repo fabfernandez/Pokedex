@@ -135,8 +135,11 @@ public class Pokemon {
         System.out.println("Abilities: ");
         printSomeList(this.abilities);
 
-        System.out.println("Evolutions :");
-        printEvolutionNames();
+        if (this.evolution != null) {
+            System.out.println("Evolutions :");
+            printEvolutionNames();
+            System.out.println(this.name() + " evolves to " + this.evolution().name() + " at lvl: " + this.evolvesAtLvl());
+        }
 
         System.out.println("---------------------------0--------------------------------");
     }
@@ -152,11 +155,14 @@ public class Pokemon {
     }
 
     public void printEvolutionProperties() {
-        System.out.println("Showing information about " + this.name() + "'s evolutions:");
-        System.out.println("____________");
-        for (Pokemon pokemon : this.allEvolutions()) {
-            pokemon.printProperties();
+        if (this.evolution == null) {
+            System.out.println("This is a final evolution.");
+        } else {
+            System.out.println("Showing information about " + this.name() + "'s evolutions:");
+            System.out.println("____________");
+            for (Pokemon pokemon : this.allEvolutions()) {
+                pokemon.printProperties();
+            }
         }
-
     }
 }
